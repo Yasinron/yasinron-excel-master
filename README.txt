@@ -1,1 +1,1 @@
-Upload all files to the root of your GitHub Pages repository. Then open the Pages URL in Chrome. Use the Install App button or Chrome menu > Add to Home screen / Install app. The first screen shows Yasin Ron branding. 
+Updated version: every formula now shows sample data, formula used, expected result, and explanation. Upload these files to the repository root.

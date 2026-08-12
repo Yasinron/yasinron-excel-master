@@ -4,85 +4,143 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0d47a1">
-<meta name="description" content="Yasin Ron - Excel Formula Master">
+<meta name="description" content="Yasin Ron - Excel Formula Master with practical data examples">
 <link rel="manifest" href="manifest.json">
 <title>Yasin Ron – Excel Formula Master</title>
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f7fb;color:#172033}
 header{background:#0d47a1;color:white;padding:28px 20px 22px;border-radius:0 0 24px 24px}
 .brand{font-size:30px;font-weight:800}.tag{opacity:.9;margin-top:5px}
-main{padding:16px;max-width:760px;margin:auto}.search{width:100%;padding:15px;border:1px solid #d7dce5;border-radius:14px;font-size:16px}
+main{padding:16px;max-width:820px;margin:auto}.search{width:100%;padding:15px;border:1px solid #d7dce5;border-radius:14px;font-size:16px}
 .chips{display:flex;gap:8px;overflow:auto;padding:12px 0}.chip{border:0;border-radius:20px;padding:9px 13px;background:white;white-space:nowrap}
-.chip.active{background:#0d47a1;color:white}.card{background:white;border-radius:16px;padding:16px;margin:10px 0;box-shadow:0 2px 10px #00000010}
-.name{font-size:19px;font-weight:700;color:#1565c0}.cat{font-size:12px;color:#77808f;margin:5px 0}.formula{font-family:monospace;background:#f1f4f8;padding:10px;border-radius:9px;overflow:auto}
+.chip.active{background:#0d47a1;color:white}.count{margin:5px 0 10px;color:#697386}
+.card{background:white;border-radius:16px;padding:16px;margin:10px 0;box-shadow:0 2px 10px #00000010}
+.name{font-size:20px;font-weight:700;color:#1565c0}.cat{font-size:12px;color:#77808f;margin:5px 0}
+.formula{font-family:monospace;background:#f1f4f8;padding:11px;border-radius:9px;overflow:auto;font-size:14px}
+.example{margin-top:14px;border-top:1px solid #e7eaf0;padding-top:12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.box{background:#f8f9fc;padding:11px;border-radius:10px}
+.box b{display:block;margin-bottom:5px;font-size:12px;color:#667085}.box code{white-space:pre-wrap;font-family:monospace}
+.result{margin-top:10px;padding:11px;border-radius:10px;background:#eef6ff}
+.tip{margin-top:10px;color:#4b5565;font-size:14px;line-height:1.45}
 button.install{width:100%;padding:14px;border:0;border-radius:13px;background:#1565c0;color:white;font-size:16px;font-weight:700;margin:8px 0}
-small{color:#697386}
 </style>
 </head>
 <body>
-<header><div class="brand">Yasin Ron</div><div class="tag">Excel Formula Master</div></header>
+<header><div class="brand">Yasin Ron</div><div class="tag">Excel Formula Master • A–Z with Data Examples</div></header>
 <main>
 <button class="install" id="installBtn" hidden>📲 Install App</button>
 <input class="search" id="search" placeholder="🔎 Search formula, category or keyword">
 <div class="chips" id="chips"></div>
-<div id="count"></div><section id="list"></section>
+<div class="count" id="count"></div>
+<section id="list"></section>
 </main>
 <script>
 const formulas=[
-["AVERAGE","Statistical","=AVERAGE(B2:B100)","Calculates the average."],
-["AND","Logical",'=AND(B2>=80,C2="Yes")',"Checks whether all conditions are TRUE."],
-["COUNTIF","Statistical",'=COUNTIF(A:A,"Present")',"Counts cells matching one condition."],
-["COUNTIFS","Statistical",'=COUNTIFS(A:A,"Pune",B:B,">90")',"Counts rows matching multiple conditions."],
-["DATEDIF","Date & Time",'=DATEDIF(A2,B2,"Y")',"Finds difference between dates."],
-["FILTER","Dynamic Array",'=FILTER(A2:D100,D2:D100="Open","No results")',"Returns rows matching a condition."],
-["IF","Logical",'=IF(B2>=80,"Pass","Fail")',"Returns a result based on a condition."],
-["IFERROR","Logical","=IFERROR(A2/B2,0)","Replaces errors with a chosen result."],
-["INDEX","Lookup & Reference","=INDEX(E:E,MATCH(A2,D:D,0))","Returns a value from a position."],
-["INDEX + XMATCH","Lookup & Reference","=INDEX(E:E,XMATCH(A2,D:D))","Modern lookup combination."],
-["LEFT","Text","=LEFT(A2,5)","Returns characters from the left."],
-["LEN","Text","=LEN(A2)","Counts characters."],
-["LOWER","Text","=LOWER(A2)","Converts text to lowercase."],
-["MATCH","Lookup & Reference","=MATCH(A2,D:D,0)","Returns the position of a match."],
-["MAX","Statistical","=MAX(B2:B100)","Returns the largest value."],
-["MIN","Statistical","=MIN(B2:B100)","Returns the smallest value."],
-["NETWORKDAYS","Date & Time","=NETWORKDAYS(A2,B2)","Counts working days between dates."],
-["NOW","Date & Time","=NOW()","Returns current date and time."],
-["OR","Logical",'=OR(B2="Yes",C2="Yes")',"TRUE when any condition is TRUE."],
-["PROPER","Text","=PROPER(A2)","Capitalizes each word."],
-["RIGHT","Text","=RIGHT(A2,5)","Returns characters from the right."],
-["ROUND","Math & Trigonometry","=ROUND(A2,2)","Rounds to specified digits."],
-["SORT","Dynamic Array","=SORT(A2:C100,2,1)","Sorts data dynamically."],
-["SUM","Math & Trigonometry","=SUM(B2:B100)","Adds numbers."],
-["SUMIF","Math & Trigonometry",'=SUMIF(A:A,"Sales",B:B)',"Adds values meeting one condition."],
-["SUMIFS","Math & Trigonometry",'=SUMIFS(C:C,A:A,"Pune",B:B,">100")',"Adds values meeting multiple conditions."],
-["TEXTJOIN","Text",'=TEXTJOIN(", ",TRUE,A2:A10)',"Combines text with a delimiter."],
-["TODAY","Date & Time","=TODAY()","Returns today's date."],
-["TRIM","Text","=TRIM(A2)","Removes extra spaces."],
-["UNIQUE","Dynamic Array","=UNIQUE(A2:A100)","Returns unique values."],
-["UPPER","Text","=UPPER(A2)","Converts text to uppercase."],
-["VLOOKUP","Lookup & Reference","=VLOOKUP(A2,D:E,2,FALSE)","Traditional lookup."],
-["XLOOKUP","Lookup & Reference",'=XLOOKUP(A2,D:D,E:E,"Not Found")',"Finds a value and returns its match."]
+["AVERAGE","Statistical","=AVERAGE(B2:B6)","Finds the average of numbers.",
+"Scores: 80, 90, 70, 60, 100","=AVERAGE(B2:B6)","80","Average score = 80"],
+["AND","Logical",'=AND(B2>=80,C2="Yes")',"Returns TRUE only when all conditions are TRUE.",
+"Score B2 = 85\\nAttendance C2 = Yes",'=AND(85>=80,"Yes"="Yes")',"TRUE","Both conditions are satisfied."],
+["COUNTIF","Statistical",'=COUNTIF(A2:A6,"Present")',"Counts cells that match one condition.",
+"Attendance: Present, Absent, Present, Present, Absent",'=COUNTIF(A2:A6,"Present")',"3","There are 3 Present entries."],
+["COUNTIFS","Statistical",'=COUNTIFS(A2:A6,"Pune",B2:B6,">90")',"Counts rows that meet multiple conditions.",
+"City: Pune, Pune, Mumbai, Pune, Pune\\nScore: 95, 85, 92, 96, 91",'=COUNTIFS(A2:A6,"Pune",B2:B6,">90")',"3","3 Pune records have scores above 90."],
+["DATEDIF","Date & Time",'=DATEDIF(A2,B2,"Y")',"Calculates the difference between two dates.",
+"Start: 01-Jan-2020\\nEnd: 01-Jan-2026",'=DATEDIF(DATE(2020,1,1),DATE(2026,1,1),"Y")',"6 years","The dates are 6 complete years apart."],
+["FILTER","Dynamic Array",'=FILTER(A2:C6,C2:C6="Open","No results")',"Returns only rows matching a condition.",
+"Ticket | Agent | Status\\n101 | Ali | Open\\n102 | Sara | Closed\\n103 | Ravi | Open",'=FILTER(A2:C4,C2:C4="Open")',"101 Ali Open\\n103 Ravi Open","Only Open tickets are returned."],
+["IF","Logical",'=IF(B2>=80,"Pass","Fail")',"Tests a condition and returns one result for TRUE and another for FALSE.",
+"Score B2 = 85",'=IF(85>=80,"Pass","Fail")',"Pass","Because 85 is at least 80."],
+["IFERROR","Logical","=IFERROR(A2/B2,0)","Replaces an Excel error with a value you choose.",
+"A2 = 100\\nB2 = 0","=IFERROR(100/0,0)","0","Instead of #DIV/0!, the result is 0."],
+["INDEX","Lookup & Reference","=INDEX(E2:E6,MATCH(A2,D2:D6,0))","Returns a value from a range using a position.",
+"Employee: Yasin, Sara, Ravi\\nID: 101, 102, 103\\nSalary: 25000, 30000, 28000","=INDEX(C2:C4,MATCH(102,B2:B4,0))","30000","Finds ID 102 and returns its salary."],
+["INDEX + XMATCH","Lookup & Reference","=INDEX(C2:C6,XMATCH(E2,A2:A6))","Modern lookup combination.",
+"Name: Ali, Sara, Ravi, Yasin\\nScore: 80, 92, 75, 88\\nSearch name: Yasin","=INDEX(B2:B5,XMATCH(\"Yasin\",A2:A5))","88","XMATCH finds Yasin's row; INDEX returns the score."],
+["LEFT","Text","=LEFT(A2,5)","Extracts characters from the left side of text.",
+"A2 = Yasin Ron","=LEFT(\"Yasin Ron\",5)","Yasin","Returns the first 5 characters."],
+["LEN","Text","=LEN(A2)","Counts the number of characters, including spaces.",
+"A2 = Yasin Ron","=LEN(\"Yasin Ron\")","9","There are 9 characters including the space."],
+["LOWER","Text","=LOWER(A2)","Converts text to lowercase.",
+"A2 = YASIN RON","=LOWER(\"YASIN RON\")","yasin ron","Useful for standardizing text."],
+["MATCH","Lookup & Reference","=MATCH(A2,D2:D6,0)","Returns the position of a matching item.",
+"List: Ali, Sara, Ravi, Yasin\\nSearch: Ravi","=MATCH(\"Ravi\",A2:A5,0)","3","Ravi is the 3rd item in the list."],
+["MAX","Statistical","=MAX(B2:B6)","Returns the largest number.",
+"Sales: 120, 450, 275, 610, 390","=MAX(B2:B6)","610","Highest sales value = 610."],
+["MIN","Statistical","=MIN(B2:B6)","Returns the smallest number.",
+"Sales: 120, 450, 275, 610, 390","=MIN(B2:B6)","120","Lowest sales value = 120."],
+["NETWORKDAYS","Date & Time","=NETWORKDAYS(A2,B2)","Counts working days between two dates, excluding weekends.",
+"Start: 01-Aug-2026\\nEnd: 07-Aug-2026","=NETWORKDAYS(DATE(2026,8,1),DATE(2026,8,7))","5","Five weekdays are counted."],
+["NOW","Date & Time","=NOW()","Returns the current date and time from the device/workbook.",
+"Example when formula is calculated","=NOW()","Current date & time","The displayed value changes with the current time."],
+["OR","Logical",'=OR(B2="Yes",C2="Yes")',"Returns TRUE when at least one condition is TRUE.",
+"Quality B2 = No\\nAttendance C2 = Yes",'=OR("No"="Yes","Yes"="Yes")',"TRUE","At least one condition is TRUE."],
+["PROPER","Text","=PROPER(A2)","Capitalizes the first letter of each word.",
+"A2 = yasin ron","=PROPER(\"yasin ron\")","Yasin Ron","Useful for names and clean reports."],
+["RIGHT","Text","=RIGHT(A2,4)","Extracts characters from the right side of text.",
+"A2 = Yasin Ron","=RIGHT(\"Yasin Ron\",3)","Ron","Returns the last 3 characters."],
+["ROUND","Math & Trigonometry","=ROUND(A2,2)","Rounds a number to a specified number of decimal places.",
+"A2 = 125.6789","=ROUND(125.6789,2)","125.68","Rounds to 2 decimal places."],
+["SORT","Dynamic Array","=SORT(A2:B6,2,-1)","Sorts a range dynamically.",
+"Agent | Score\\nAli | 75\\nSara | 95\\nRavi | 82","=SORT(A2:B4,2,-1)","Sara 95\\nRavi 82\\nAli 75","Sorts scores from highest to lowest."],
+["SUM","Math & Trigonometry","=SUM(B2:B6)","Adds numbers together.",
+"Hours: 8, 7.5, 9, 8, 7.5","=SUM(B2:B6)","40","Total hours = 40."],
+["SUMIF","Math & Trigonometry",'=SUMIF(A2:A6,"Sales",B2:B6)',"Adds values that meet one condition.",
+"Type: Sales, Support, Sales, Sales\\nAmount: 100, 50, 200, 150","=SUMIF(A2:A5,\"Sales\",B2:B5)","450","Sales total = 450."],
+["SUMIFS","Math & Trigonometry",'=SUMIFS(C2:C6,A2:A6,"Pune",B2:B6,"Closed")',"Adds values using multiple conditions.",
+"City: Pune, Pune, Mumbai, Pune\\nStatus: Closed, Open, Closed, Closed\\nAmount: 100, 200, 150, 300","=SUMIFS(C2:C5,A2:A5,\"Pune\",B2:B5,\"Closed\")","400","Adds only Pune + Closed amounts."],
+["TEXTJOIN","Text",'=TEXTJOIN(", ",TRUE,A2:A5)',"Combines multiple text values with a delimiter.",
+"Names: Ali, Sara, Ravi, Yasin","=TEXTJOIN(\", \",TRUE,A2:A5)","Ali, Sara, Ravi, Yasin","Useful for combining names, IDs or labels."],
+["TODAY","Date & Time","=TODAY()","Returns today's date.",
+"Example when formula is calculated","=TODAY()","Today's date","Useful for daily reports and ageing calculations."],
+["TRIM","Text","=TRIM(A2)","Removes extra spaces from text.",
+"A2 =   Yasin   Ron  ","=TRIM(\"   Yasin   Ron  \")","Yasin Ron","Useful for cleaning copied data."],
+["UNIQUE","Dynamic Array","=UNIQUE(A2:A6)","Returns each distinct value once.",
+"Team: Sales, Support, Sales, HR, Support","=UNIQUE(A2:A6)","Sales\\nSupport\\nHR","Creates a unique list automatically."],
+["UPPER","Text","=UPPER(A2)","Converts text to uppercase.",
+"A2 = Yasin Ron","=UPPER(\"Yasin Ron\")","YASIN RON","Useful for standardizing codes and names."],
+["VLOOKUP","Lookup & Reference","=VLOOKUP(A2,D2:E6,2,FALSE)","Looks up a value in the first column and returns a related value.",
+"ID: 101,102,103\\nName: Ali,Sara,Ravi\\nSearch ID: 102","=VLOOKUP(102,A2:B4,2,FALSE)","Sara","Finds ID 102 and returns Sara."],
+["XLOOKUP","Lookup & Reference",'=XLOOKUP(A2,D2:D6,E2:E6,"Not Found")',"Modern lookup that can search one range and return another.",
+"ID: 101,102,103\\nName: Ali,Sara,Ravi\\nSearch ID: 103",'=XLOOKUP(103,A2:A4,B2:B4,"Not Found")',"Ravi","Finds ID 103 and returns Ravi."]
 ];
-let active="All";
+
 const chips=["All","A–Z","Lookup","Logical","Text","Date","Math","Statistics","Dynamic"];
-function render(){
+let active="All";
+function matches(f){
+ const cat=active==="All"||active==="A–Z"||
+ (active==="Lookup"&&f[1].includes("Lookup"))||
+ (active==="Date"&&f[1].includes("Date"))||
+ (active==="Math"&&f[1].includes("Math"))||
+ (active==="Statistics"&&f[1].includes("Statistical"))||
+ f[1].startsWith(active);
  const q=document.getElementById("search").value.toLowerCase();
- let a=formulas.filter(f=>{
-  const cat=active==="All"||active==="A–Z"||(active==="Lookup"&&f[1].includes("Lookup"))||(active==="Date"&&f[1].includes("Date"))||(active==="Math"&&f[1].includes("Math"))||(active==="Statistics"&&f[1].includes("Statistical"))||f[1].startsWith(active);
-  return cat && (f.join(" ").toLowerCase().includes(q));
- }).sort((x,y)=>x[0].localeCompare(y[0]));
- document.getElementById("count").innerHTML="<small>"+a.length+" formulas • Tap a formula for details</small>";
- document.getElementById("list").innerHTML=a.map(f=>`<article class="card" onclick='detail(${JSON.stringify(f)})'><div class="name">${f[0]}</div><div class="cat">${f[1]}</div><div class="formula">${f[2]}</div><p>${f[3]}</p></article>`).join("");
+ return cat && f.join(" ").toLowerCase().includes(q);
 }
-function detail(f){
- alert(f[0]+"\n\nFormula:\n"+f[2]+"\n\n"+f[3]+"\n\nPractical office use: reporting, productivity, attendance, targets, SLA and data cleaning.");
+function render(){
+ const a=formulas.filter(matches).sort((x,y)=>x[0].localeCompare(y[0]));
+ document.getElementById("count").textContent=a.length+" formulas • Every formula includes data, formula and expected result";
+ document.getElementById("list").innerHTML=a.map((f,i)=>`
+ <article class="card">
+  <div class="name">${f[0]}</div><div class="cat">${f[1]}</div>
+  <div class="formula">${f[2]}</div>
+  <div class="example">
+   <div class="grid">
+    <div class="box"><b>📊 SAMPLE DATA</b><code>${f[4]}</code></div>
+    <div class="box"><b>🧮 FORMULA USED</b><code>${f[5]}</code></div>
+   </div>
+   <div class="result"><b>✅ EXPECTED RESULT:</b><br><code>${f[6]}</code></div>
+   <div class="tip"><b>💡 Explanation:</b> ${f[3]} ${f[7]}</div>
+  </div>
+ </article>`).join("");
 }
 document.getElementById("chips").innerHTML=chips.map(c=>`<button class="chip ${c==="All"?"active":""}" onclick="active='${c}';document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));this.classList.add('active');render()">${c}</button>`).join("");
-document.getElementById("search").oninput=render; render();
+document.getElementById("search").oninput=render;
+render();
 
 let deferred;
 window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;document.getElementById("installBtn").hidden=false});
 document.getElementById("installBtn").onclick=async()=>{if(deferred){deferred.prompt();await deferred.userChoice;deferred=null;document.getElementById("installBtn").hidden=true}};
 if("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js");
 </script>
-</body></html>
+</body>
+</html>
