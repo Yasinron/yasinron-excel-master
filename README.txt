@@ -1,0 +1,1 @@
+Upload all files to the root of your GitHub Pages repository. Then open the Pages URL in Chrome. Use the Install App button or Chrome menu > Add to Home screen / Install app. The first screen shows Yasin Ron branding. 
